@@ -1,182 +1,217 @@
 import axios from "../axios";
+// Hàm để lấy token từ localStorage
+const getToken = () => {
+    return localStorage.getItem("token");
+};
+
+// Hàm gọi API với token
+const callApiWithToken = (url, method, data) => {
+    const token = getToken();
+
+    const config = {
+        method: method,
+        url: url,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: data,
+    };
+
+    return axios(config);
+};
 
 const handleLoginApi = (username, password) => {
-  return axios.post("/api/login", { username, password });
+    return axios.post("/api/login", { username, password });
 };
 
 const getAllUsers = (inputId) => {
-  return axios.get(`/api/get-all-users?id=${inputId}`);
+    const url = `/api/get-all-users?id=${inputId}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const createNewUserService = (data) => {
-  return axios.post("/api/create-new-user", data);
+    const url = "/api/create-new-user";
+    return callApiWithToken(url, "POST", data);
 };
 
 const deleteUSerService = (userId) => {
-  // return axios.delete('/api/delete-user', { id: userId });
-  return axios.delete("/api/delete-user", {
-    data: {
-      id: userId,
-    },
-  });
+    const url = "/api/delete-user";
+    return callApiWithToken(url, "DELETE", {
+        id: userId,
+    });
 };
 
 const editUserService = (inputData) => {
-  return axios.put("/api/edit-user", inputData);
+    const url = "/api/edit-user";
+    return callApiWithToken(url, "PUT", inputData);
 };
 
 const getAllCodeService = (inputType) => {
-  return axios.get(`/api/allcode?type=${inputType}`);
+    const url = `/api/allcode?type=${inputType}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const getTopDoctorHomeService = (limit) => {
-  return axios.get(`/api/top-doctor-home?limit=${limit}`);
+    const url = `/api/top-doctor-home?limit=${limit}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const getAllDoctors = () => {
-  return axios.get(`/api/get-all-doctors`);
+    const url = `/api/get-all-doctors`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const saveDetailDoctorService = (data) => {
-  return axios.post("/api/save-infor-doctors", data);
+    const url = "/api/save-infor-doctors";
+    return callApiWithToken(url, "POST", data);
 };
 
 const getDetailInforDoctor = (inputId) => {
-  return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
+    const url = `/api/get-detail-doctor-by-id?id=${inputId}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const saveBulkScheduleDoctor = (data) => {
-  return axios.post("/api/bulk-create-schedule", data);
+    const url = "/api/bulk-create-schedule";
+    return callApiWithToken(url, "POST", data);
 };
 
 const getScheduleDoctorByDate = (doctorId, date) => {
-  return axios.get(
-    `/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`
-  );
+    const url = `/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`;
+    return callApiWithToken(url, "GET", null);
 };
 const getExtraInforDoctorById = (doctorId) => {
-  return axios.get(`/api/get-extra-infor-doctor-by-id?doctorId=${doctorId}`);
+    const url = `/api/get-extra-infor-doctor-by-id?doctorId=${doctorId}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const getProfileDoctorById = (doctorId) => {
-  return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
+    const url = `/api/get-profile-doctor-by-id?doctorId=${doctorId}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const postPatientBookAppointment = (data) => {
-  return axios.post("/api/patient-book-appointment", data);
+    const url = "/api/patient-book-appointment";
+    return callApiWithToken(url, "POST", data);
 };
 const postVerifyBookAppointment = (data) => {
-  return axios.post("/api/verify-book-appointment", data);
+    const url = "/api/verify-book-appointment";
+    return callApiWithToken(url, "POST", data);
 };
 
 const postCancelBookAppointment = (data) => {
-  return axios.post("/api/cancel-book-appointment", data);
+    const url = "/api/cancel-book-appointment";
+    return callApiWithToken(url, "POST", data);
 };
 
 // ================================ Specialty =============================
 const createNewSpecialty = (data) => {
-  return axios.post("/api/create-new-specialty", data);
+    const url = "/api/create-new-specialty";
+    return callApiWithToken(url, "POST", data);
 };
 
 const getAllSpecialty = () => {
-  return axios.get(`/api/get-specialty`);
+    const url = `/api/get-specialty`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const deleteSpecialty = (specialtyId) => {
-  return axios.delete("/api/delete-specialty", {
-    data: {
-      id: specialtyId,
-    },
-  });
+    const url = "/api/delete-specialty";
+    return callApiWithToken(url, "DELETE", {
+        id: specialtyId,
+    });
 };
 
 const getDetailSpecialtyById = (data) => {
-  return axios.get(
-    `/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`
-  );
+    const url = `/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const editSpecialtyService = (inputData) => {
-  return axios.put("/api/edit-specialty", inputData);
+    const url = "/api/edit-specialty";
+    return callApiWithToken(url, "PUT", inputData);
 };
 
 // ========================= Clinic ============================
 const createNewClinic = (data) => {
-  return axios.post("/api/create-new-clinic", data);
+    const url = "/api/create-new-clinic";
+    return callApiWithToken(url, "POST", data);
 };
 
 const getAllClinic = () => {
-  return axios.get(`/api/get-clinic`);
+    const url = `/api/get-clinic`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const getDetailClinicById = (data) => {
-  return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`);
+    const url = `/api/get-detail-clinic-by-id?id=${data.id}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const editClinicService = (inputData) => {
-  return axios.put("/api/edit-clinic", inputData);
+    const url = "/api/edit-clinic";
+    return callApiWithToken(url, "PUT", inputData);
 };
 
 const deleteClinic = (specialtyId) => {
-  return axios.delete("/api/delete-clinic", {
-    data: {
-      id: specialtyId,
-    },
-  });
+    const url = "/api/delete-clinic";
+    return callApiWithToken(url, "DELETE", {
+        id: specialtyId,
+    });
 };
 
 // ========= manage booking patient ================
 
 const getAllPatientForDoctor = (data) => {
-  return axios.get(
-    `/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`
-  );
+    const url = `/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const getAllPatientForDoctorSuceed = (data) => {
-  return axios.get(
-    `/api/get-list-booking-for-doctor-suceed?doctorId=${data.doctorId}&date=${data.date}`
-  );
+    const url = `/api/get-list-booking-for-doctor-suceed?doctorId=${data.doctorId}&date=${data.date}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 const postSendRemedy = (data) => {
-  return axios.post("/api/send-remedy", data);
+    const url = "/api/send-remedy";
+    return callApiWithToken(url, "POST", data);
 };
 
 const getDoctorNameBySpecialtyId = (doctorId) => {
-  return axios.get(`/api/get-doctor-name-by-specialty-id?doctorId=${doctorId}`);
+    const url = `/api/get-doctor-name-by-specialty-id?doctorId=${doctorId}`;
+    return callApiWithToken(url, "GET", null);
 };
 
 export {
-  handleLoginApi,
-  getAllUsers,
-  createNewUserService,
-  deleteUSerService,
-  editUserService,
-  getAllCodeService,
-  getTopDoctorHomeService,
-  getAllDoctors,
-  saveDetailDoctorService,
-  getDetailInforDoctor,
-  saveBulkScheduleDoctor,
-  getScheduleDoctorByDate,
-  getExtraInforDoctorById,
-  getProfileDoctorById,
-  postPatientBookAppointment,
-  postVerifyBookAppointment,
-  createNewSpecialty,
-  getAllSpecialty,
-  deleteSpecialty,
-  getDetailSpecialtyById,
-  editSpecialtyService,
-  createNewClinic,
-  getAllClinic,
-  getDetailClinicById,
-  editClinicService,
-  deleteClinic,
-  getAllPatientForDoctor,
-  postSendRemedy,
-  getDoctorNameBySpecialtyId,
-  postCancelBookAppointment,
-  getAllPatientForDoctorSuceed,
+    handleLoginApi,
+    getAllUsers,
+    createNewUserService,
+    deleteUSerService,
+    editUserService,
+    getAllCodeService,
+    getTopDoctorHomeService,
+    getAllDoctors,
+    saveDetailDoctorService,
+    getDetailInforDoctor,
+    saveBulkScheduleDoctor,
+    getScheduleDoctorByDate,
+    getExtraInforDoctorById,
+    getProfileDoctorById,
+    postPatientBookAppointment,
+    postVerifyBookAppointment,
+    createNewSpecialty,
+    getAllSpecialty,
+    deleteSpecialty,
+    getDetailSpecialtyById,
+    editSpecialtyService,
+    createNewClinic,
+    getAllClinic,
+    getDetailClinicById,
+    editClinicService,
+    deleteClinic,
+    getAllPatientForDoctor,
+    postSendRemedy,
+    getDoctorNameBySpecialtyId,
+    postCancelBookAppointment,
+    getAllPatientForDoctorSuceed,
 };
