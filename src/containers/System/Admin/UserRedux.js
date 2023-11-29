@@ -5,6 +5,7 @@ import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import TableManageUser from "./TableManageUser";
+import config from "../../../config";
 
 //thu vien popup img
 import Lightbox from "react-image-lightbox";
@@ -32,7 +33,6 @@ class UserRedux extends Component {
       position: "",
       role: "",
       avatar: "",
-      avatarFile: null,
 
       action: "",
       userEditId: "",
@@ -109,14 +109,12 @@ class UserRedux extends Component {
   handleOnChangImage = async (event) => {
     let data = event.target.files;
     let file = data[0];
-
     if (file) {
       let base64 = await CommonUtils.getBase64(file);
       let objectUrl = URL.createObjectURL(file);
       this.setState({
         previewImgUrl: objectUrl,
         avatar: base64,
-        avatarFile: file,
       });
     }
   };
@@ -133,10 +131,7 @@ class UserRedux extends Component {
     let isValid = this.checkValidateInput();
     if (isValid === false) return;
 
-    // let { action } = this.state;
-    let { action, avatarFile } = this.state;
-    let formData = new FormData();
-    formData.append("avatar", avatarFile);
+    let { action } = this.state;
 
     if (action === CRUD_ACTIONS.CREATE) {
       //fire redux create user
@@ -151,7 +146,7 @@ class UserRedux extends Component {
         gender: this.state.gender,
         roleId: this.state.role,
         positionId: this.state.position,
-        avatar: this.state.avatar,
+        avatar: this.state.avatar.replace(/^data:image\/[a-z]+;base64,/, ""),
       });
     }
 
@@ -159,6 +154,7 @@ class UserRedux extends Component {
       //fire redux edit user
       this.props.editAUserRedux({
         id: this.state.userEditId,
+        username: this.state.username,
         email: this.state.email,
         password: this.state.password,
         firstName: this.state.firstName,
@@ -168,7 +164,7 @@ class UserRedux extends Component {
         gender: this.state.gender,
         roleId: this.state.role,
         positionId: this.state.position,
-        avatar: this.state.avatar,
+        avatar: this.state.avatar.replace(/^data:image\/[a-z]+;base64,/, ""),
       });
     }
   };
@@ -218,10 +214,11 @@ class UserRedux extends Component {
   };
 
   handleEditUserFromParent = (user) => {
-    let imageBase64 = "";
-    if (user.image) {
-      imageBase64 = new Buffer(user.image, "base64").toString("binary");
-    }
+    const fullUrl = config.baseUrl + user.avatar;
+    // let imageBase64 = "";
+    // if (user.avatar) {
+    //     imageBase64 = new Buffer(user.avatar, "base64").toString("binary");
+    // }
     this.setState({
       username: user.username,
       email: user.email,
@@ -234,10 +231,11 @@ class UserRedux extends Component {
       position: user.positionId,
       role: user.roleId,
       avatar: "",
-      previewImgUrl: imageBase64,
+      previewImgUrl: fullUrl,
       action: CRUD_ACTIONS.EDIT,
       userEditId: user.id,
     });
+    console.log("img", fullUrl);
   };
 
   render() {

@@ -29,6 +29,11 @@ const getAllUsers = (inputId) => {
   return callApiWithToken(url, "GET", null);
 };
 
+// const createNewUserService = (data) => {
+//     const url = "/api/create-new-user";
+//     return callApiWithToken(url, "POST", data);
+// };
+
 const createNewUserService = (userData) => {
   console.log("user", userData);
 
@@ -45,18 +50,35 @@ const createNewUserService = (userData) => {
   formData.append("user", JSON.stringify(userData));
 
   const url = "/api/create-new-user";
+  // Gọi API với method POST và truyền FormData
+  return callApiWithToken(url, "POST", formData);
+};
+
+const editUserService = (inputData) => {
+  // Tạo FormData object để chứa dữ liệu người dùng và tệp tin avatar
+  const formData = new FormData();
+
+  // Kiểm tra xem userData có chứa avatar hay không trước khi đưa vào FormData
+  if (inputData.avatar) {
+    formData.append("avatar", inputData.avatar);
+    delete inputData.avatar;
+  }
+
+  // Đưa dữ liệu người dùng vào FormData
+  formData.append("user", JSON.stringify(inputData));
+
+  const url = "/api/edit-user";
   for (var pair of formData.entries()) {
     console.log(pair[0] + ", " + pair[1]);
   }
 
   // Gọi API với method POST và truyền FormData
-  return callApiWithToken(url, "POST", formData);
+  return callApiWithToken(url, "PUT", formData);
 };
 
-// const createNewUserService = (data) => {
-//   console.log("user", data);
-//   const url = "/api/create-new-user";
-//   return callApiWithToken(url, "POST", data);
+// const editUserService = (inputData) => {
+//     const url = "/api/edit-user";
+//     return callApiWithToken(url, "PUT", inputData);
 // };
 
 const deleteUSerService = (userId) => {
@@ -64,11 +86,6 @@ const deleteUSerService = (userId) => {
   return callApiWithToken(url, "DELETE", {
     id: userId,
   });
-};
-
-const editUserService = (inputData) => {
-  const url = "/api/edit-user";
-  return callApiWithToken(url, "PUT", inputData);
 };
 
 const getAllCodeService = (inputType) => {

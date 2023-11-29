@@ -10,4 +10,6 @@ export default {
      */
     ROUTER_BASE_NAME: null,
   },
+
+  baseUrl: "http://localhost:8080/api/files/load/",
 };
