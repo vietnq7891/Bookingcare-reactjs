@@ -8,6 +8,7 @@ import { changeLanguageApp } from "../../../store/actions";
 import Slider from "react-slick";
 import { getAllSpecialty } from "../../../services/userService";
 import { withRouter } from "react-router";
+import config from "../../../config";
 class Specialty extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ class Specialty extends Component {
 
     async componentDidMount() {
         let res = await getAllSpecialty();
+
         if (res && res.errCode === 0) {
             this.setState({
                 dataSpecialty: res.data ? res.data : [],

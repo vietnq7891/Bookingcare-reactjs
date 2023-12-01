@@ -6,6 +6,7 @@ import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
 import { withRouter } from "react-router";
 import { getDoctorNameBySpecialtyId } from "../../../services/userService";
+import config from "../../../config";
 class OutStandingDoctor extends Component {
     constructor(props) {
         super(props);
@@ -52,10 +53,7 @@ class OutStandingDoctor extends Component {
                             {arrDoctors &&
                                 arrDoctors.length > 0 &&
                                 arrDoctors.map((item, index) => {
-                                    let imageBase64 = "";
-                                    if (item.image) {
-                                        imageBase64 = new Buffer(item.image, "base64").toString("binary");
-                                    }
+                                    let imageBase64 = config.baseUrl + item.avatar;
                                     let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
                                     let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
                                     // let nameSpecialty = getDoctorNameBySpecialtyId(`${item.id}`);
