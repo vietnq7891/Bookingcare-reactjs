@@ -53,9 +53,11 @@ class OutStandingDoctor extends Component {
                             {arrDoctors &&
                                 arrDoctors.length > 0 &&
                                 arrDoctors.map((item, index) => {
-                                    let imageBase64 = config.baseUrl + item.avatar;
+                                    let imageBase64 = config.baseUrl + item.image;
+
                                     let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`;
                                     let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
+
                                     // let nameSpecialty = getDoctorNameBySpecialtyId(`${item.id}`);
                                     // console.log('check name ', nameSpecialty.data);
                                     return (

@@ -114,10 +114,12 @@ const saveDetailDoctorService = (data) => {
 
 const getDetailInforDoctor = (inputId) => {
     const url = `/api/get-detail-doctor-by-id?id=${inputId}`;
+
     return callApiWithToken(url, "GET", null);
 };
 
 const saveBulkScheduleDoctor = (data) => {
+    console.log("schedule", data)
     const url = "/api/bulk-create-schedule";
     return callApiWithToken(url, "POST", data);
 };

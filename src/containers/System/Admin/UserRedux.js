@@ -205,7 +205,8 @@ class UserRedux extends Component {
     };
 
     handleEditUserFromParent = (user) => {
-        const fullUrl = config.baseUrl + user.avatar;
+        const fullUrl = config.baseUrl + user.image;
+        console.log("img", user)
         // let imageBase64 = "";
         // if (user.avatar) {
         //     imageBase64 = new Buffer(user.avatar, "base64").toString("binary");
