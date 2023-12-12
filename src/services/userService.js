@@ -139,6 +139,7 @@ const getProfileDoctorById = (doctorId) => {
 };
 
 const postPatientBookAppointment = (data) => {
+    console.log("booking", data)
     const url = "/api/patient-book-appointment";
     return callApiWithToken(url, "POST", data);
 };

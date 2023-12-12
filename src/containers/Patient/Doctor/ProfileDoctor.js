@@ -9,6 +9,7 @@ import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import config from '../../../config';
 class ProfileDoctor extends Component {
 
     constructor(props) {
@@ -83,12 +84,12 @@ class ProfileDoctor extends Component {
             nameVi = `${dataProfile.positionData.valueVi}, ${dataProfile.lastName} ${dataProfile.firstName}`;
             nameEn = `${dataProfile.positionData.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName}`;
         }
-
+        let image = config.baseUrl + dataProfile.image;
         return (
             <div className='profile-doctor-container'>
                 <div className='intro-doctor'>
                     <div className='content-left'
-                        style={{ backgroundImage: `url(${dataProfile && dataProfile.image ? dataProfile.image : ''})` }}
+                        style={{ backgroundImage: `url(${dataProfile && image ? image : ''})` }}
                     >
 
                     </div>
